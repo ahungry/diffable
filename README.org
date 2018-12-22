@@ -1,0 +1,141 @@
+* Diffable
+An idea to try out a very minimal concept of state passing between two
+endpoints with very simple / flat maps per scene / page, instead of
+heavily nested "components" that rarely get reused and end up with
+tons of hooks and binds in them over time.
+
+* Scene based diffing site
+** Current react situation
+Currently with a tool like React (SPA) everything follows a tree
+structure.
+
+You have a structure very similar to:
+#+BEGIN_SRC yaml
+app:
+  login:
+    login_form: Do login here
+  authed:
+    page:
+      dashboard:
+        widgets: [w1, w2, w3, w4]
+      account:
+        profile:
+          widgets: [w1, w2]
+          forms: [f1, f2]
+        security:
+          widgets: [w1, w2]
+          forms: [f1, f2]
+#+END_SRC
+
+Yet, very rarely do any of these cross boundaries (beyond sharing a
+style, creating a "Button" as a widget offers very little reuse or
+value, because all button handling must be done with callbacks).
+
+So, the biggest benefit may be considered async requests (each widget
+reaches out for it's data without blocking the others).
+
+This begins to get very complex with these "simple reusable widgets"
+that are tightly coupled with logic and manual state change of native
+DOM widgets for management - if you edit a form input, chances are you
+need to update the state in your form vs just reading the DOM input
+leading to massive boilerplate.
+
+The poor alternative is how things were pre-React.  We would have a
+huge mess of globals and spaghetti code on the front end, and static
+all or nothing renders on the back end (and, heaven forbid you use a
+back end framework, which adds its own huge complications.  Doing a
+trivial form becomes an exercise in futility of wiring up Constraint
+and Validator classes etc.).
+
+** Solution Idea
+What if instead of ever handling front end user events, we ran
+everything on polling timers and simply passed the diffs to various
+listeners (backend or frontend) via some type of "diffable" attribute?
+
+Then imagine these diffables do not have *any* logic in their "views"
+at all.  No coupling whatsoever between front end and back end logic,
+for something like figuring out where a form should post - the form
+that the user sees is just derived based on the "scene" (but again,
+unlike an Android scene, no events beyond native binds).
+
+Imagine you're on a login form (LoginScene).  In this theoretical, the code may
+look like:
+
+#+BEGIN_SRC html
+<form>
+  <input type="text" id="username" diffable />
+  <input type="password" id="password" diffable />
+  <button id="go" diffable>Login</button>
+</form>
+#+END_SRC
+
+So, on the back end (or via a front-end diffable run) it may see this:
+
+#+BEGIN_SRC json
+{"username": "", "password": "", "go": "clicked"}
+#+END_SRC
+
+The receiver of the event would decide what happens based on matching
+against the values:
+
+#+BEGIN_SRC javascript
+// At any given point, you can envision the before and after of a scene and
+// map out very easily the different paths it could take just by receiving the "diff"
+// of things you specifically care about.
+// So - how would this be that different?  We would not "nest" things, and thus avoid
+// the tree.  While the DOM is nested, our state of what is on the page and we care about
+// shouldn't be, it just makes it much more complicated to hand things down.
+// If it has a diffable tag, and it has an id, we pull from the id the current values.
+// The other neat thing about this approach, is that we could use any server side language
+// for the implementation of logic - javascript will just be scanning the front end for us
+// and pushing JSON via websocket or AJAX (or even user POST I guess if we want to gracefully
+// degrade).  Then we just dynamically create things based on transitional logic vs route mappings.
+function LoginScene (state, next) {
+  this.state = state
+  this.next = next
+
+  // This ensures we don't hit a cyclic loop.
+  if (undefined === next) return this
+
+  // The user clicked the button to submit the form.
+  if ("clicked" === next.go) {
+    if (isAuthorized(next)) {
+      return new DashboardScene
+    }
+    return new LoginScene({...next, error: "Invalid credentials." })
+  }
+
+  if (next.password.length < 5) {
+    return new LoginScene({...next, info: 'Keep typing, we do not allow passes that small.' })
+  }
+
+  return new LoginScene(next)
+}
+
+function ErrorView (error) {
+  return `<strong style="color:red;">Oops! ${error}</strong>`
+}
+
+function LoginView (state) {
+  return `
+<form>
+  ${state.error ? ErrorView(state.error) : ''}
+  <input type="text" value=${state.username} id="username" diffable />
+  <input type="password" value=${state.password} id="password" diffable />
+  <button id="go" diffable>Login</button>
+</form>
+`
+}
+
+LoginScene.prototype.toString = function () {
+  return new LoginView(this.state)
+}
+#+END_SRC
+
+and serving the scene itself may look like this:
+
+#+BEGIN_SRC html
+<form>
+
+</form>
+#+END_SRC
