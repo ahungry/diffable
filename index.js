@@ -78,10 +78,33 @@ function isAuthorized (m) {
 }
 
 function set_scene (state, next) {
-  document.getElementById('diffable').innerHTML = new LoginScene(state, next)
+  const url = 'http://localhost:12345/api.php'
+  const data = next
+
+  fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(json => {
+      document.getElementById('diffable').innerHTML = json.html
+      if (lastFocused) {
+        var focus = document.getElementById(lastFocused)
+        if (focus) {
+          focus.focus()
+          focus.selectionStart = focusPos
+        }
+      }
+    })
+  //document.getElementById('diffable').innerHTML = new LoginScene(state, next)
 }
 
 var world = { counter: 0, username: '', password: '' }
+var focusPos = 0
 var lastFocused = undefined
 var same = true
 
@@ -94,9 +117,6 @@ setInterval(function () {
     return
   }
   same = true
-
-  // First, track where we are.
-  var focusPos = 0
 
   if (lastFocused) {
     var focus = document.getElementById(lastFocused)
@@ -115,13 +135,6 @@ setInterval(function () {
   set_scene(world, diff)
   world = diff
 
-  if (lastFocused) {
-    var focus = document.getElementById(lastFocused)
-    if (focus) {
-      focus.focus()
-      focus.selectionStart = focusPos
-    }
-  }
 }, 50)
 
 // Ensure we always remember last focus
