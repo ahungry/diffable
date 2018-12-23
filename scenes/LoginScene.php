@@ -15,7 +15,7 @@ class LoginScene extends AbstractScene
     public function __construct($state)
     {
         foreach ($state as $k => $v) {
-            $this->${k} = $v;
+            $this->{$k} = $v;
         }
     }
 
@@ -29,7 +29,7 @@ class LoginScene extends AbstractScene
     {
         if ('clicked' === $this->go) {
             if ($this->isValidAuth()) {
-                return $this->render('DashboardView');
+                return (new DashboardScene([]))->next();
             }
 
             $this->error = $this->render('ErrorView', ['error' => 'Invalid Credentials!']);

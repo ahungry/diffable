@@ -8,7 +8,7 @@ function set_world($w) {
 }
 
 function maybe_default ($key) {
-    return $_SERVER['CONTENT_TYPE'] === 'application/json' ? '' : $key;
+    return ($_SERVER['CONTENT_TYPE'] ?? '') === 'application/json' ? '' : $key;
 }
 
 function s ($key) {

@@ -1,5 +1,6 @@
 <?php require_once 'globals.php' ?>
 
+<input type="hidden" diffable id="scene" value="LoginScene">
 <div style="margin: auto;">
   <form>
     <?php s('error'); ?>

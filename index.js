@@ -112,6 +112,7 @@ setTimeout(function () {
   set_scene(world)
 }, 1)
 
+// Add a throttle when typing and needing to refresh the state.
 setInterval(function () {
   if (true === same) {
     return
@@ -135,7 +136,7 @@ setInterval(function () {
   set_scene(world, diff)
   world = diff
 
-}, 50)
+}, 20)
 
 // Ensure we always remember last focus
 document.addEventListener('focus', function (e) {
@@ -148,6 +149,10 @@ document.addEventListener('blur', function (_e) {
 }, true)
 
 document.addEventListener('keypress', function (_e) {
+  same = false
+}, true)
+
+document.addEventListener('change', function (_e) {
   same = false
 }, true)
 
