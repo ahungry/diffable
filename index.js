@@ -1,3 +1,4 @@
+var buf = ''
 var scene_mutex = false
 
 function set_scene (state, next) {
