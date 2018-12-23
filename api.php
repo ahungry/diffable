@@ -1,43 +1,20 @@
 <?php
 
 require_once __DIR__ . '/views/globals.php';
+require_once __DIR__ . '/scenes/LoginScene.php';
+require_once __DIR__ . '/scenes/DashboardScene.php';
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-function render ($tpl, $input) {
-    // extract($input);
-    ob_start();
-    set_world($input);
-    include __DIR__ . '/views/' . $tpl . '.php';
-    $html = ob_get_clean();
-
-    return $html;
-}
-
-function handleLoginScene ($input) {
-    $state = $input;
-
-    if ('clicked' === $state['go']) {
-        $state['error'] = render('ErrorView', ['error' => 'Invalid credentials!']);
-    }
-
-    if ('clicked' === $state['inc']) {
-        $state['counter']++;
-    }
-
-    if (strlen($state['password']) > 0 && strlen($state['password']) < 8) {
-        $state['info'] = render('InfoView', ['info' => 'Keep typing, pass too short.']);
-    }
-
-    return render('LoginView', $state);
-}
-
 function handle ($input) {
     switch ($input['scene']) {
-        case 'DashboardScene': return handleDashboardScene($input);
+        case 'DashboardScene':
+            return (new \Scene\DashboardScene($input))->next();
+
         case 'LoginScene':
         default:
-            return handleLoginScene($input);
+            return (new \Scene\LoginScene($input))->next();
+            // return handleLoginScene($input);
     }
 }
 
