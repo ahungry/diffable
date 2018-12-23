@@ -6,7 +6,7 @@ require_once __DIR__ . '/../views/globals.php';
 
 abstract class AbstractScene
 {
-    public function render(string $tpl, $arrayOrObject): string
+    public function render(string $tpl, $arrayOrObject = []): string
     {
         $input = json_decode(json_encode($arrayOrObject), true);
         ob_start();

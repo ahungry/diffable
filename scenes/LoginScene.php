@@ -19,9 +19,19 @@ class LoginScene extends AbstractScene
         }
     }
 
+    private function isValidAuth()
+    {
+        return ('test' === $this->username &&
+                'test' === $this->password);
+    }
+
     public function next(): string
     {
         if ('clicked' === $this->go) {
+            if ($this->isValidAuth()) {
+                return $this->render('DashboardView');
+            }
+
             $this->error = $this->render('ErrorView', ['error' => 'Invalid Credentials!']);
         }
 
