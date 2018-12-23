@@ -11,6 +11,8 @@ class LoginScene extends AbstractScene
     public $username = '';
     public $password = '';
     public $counter = 0;
+    public $error = '';
+    public $info = '';
 
     public function __construct($state)
     {
@@ -23,6 +25,30 @@ class LoginScene extends AbstractScene
     {
         return ('test' === $this->username &&
                 'test' === $this->password);
+    }
+
+    private function isTooShort(int $n): bool
+    {
+        return $n > 0 && $n < 8;
+    }
+
+    private function checkLength(string $key)
+    {
+        $len = strlen($this->$key);
+
+        if ($this->isTooShort($len)) {
+            return $this->info .= $this->render(
+                'InfoView',
+                ['info' => "Keep typing, $key too short! ({$len} / 8+ chars)"]
+            );
+        }
+
+        if ($len > 0) {
+            return $this->info .= $this->render(
+                'SuccessView',
+                ['info' => "Good job, your $key is perfect!"]
+            );
+        }
     }
 
     public function next(): string
@@ -39,9 +65,8 @@ class LoginScene extends AbstractScene
             $this->counter++;
         }
 
-        if (strlen($this->password) > 0 && strlen($this->password) < 8) {
-            $this->info = $this->render('InfoView', ['info' => 'Keep typing, pass too short!']);
-        }
+        $this->checkLength('username');
+        $this->checkLength('password');
 
         return $this->render('LoginView', $this);
     }

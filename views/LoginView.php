@@ -3,14 +3,12 @@
 <input type="hidden" diffable id="scene" value="LoginScene">
 <div style="margin: auto;">
   <form>
-    <?php s('error'); ?>
     <div>
       <input type="text"
              value="<?php s('username'); ?>"
              id="username"
              diffable />
     </div>
-    <?php s('info'); ?>
     <div>
       <input type="password"
              value="<?php s('password'); ?>"
@@ -22,8 +20,14 @@
               clickable
               diffable>Login</button>
     </div>
+    <div style="background:#333;padding:20px;">
+      <?php s('error'); ?>
+    </div>
+    <div style="background:#333;padding:20px;">
+      <?php s('info'); ?>
+    </div>
     <div>
-      <strong id="inc" clickable diffable>Clicked <?php s('counter'); ?> times!</strong>
+      <button id="inc" clickable diffable>Clicked <?php s('counter'); ?> times!</button>
     </div>
     <input type="hidden" id="counter" diffable value="<?php s('counter'); ?>" />
   </form>

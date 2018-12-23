@@ -20,7 +20,14 @@ class DashboardScene extends AbstractScene
 
     public function setTemplates()
     {
-        $this->templates = scandir(__DIR__ . '/../views');
+        foreach (scandir(__DIR__ . '/../views') as $key => $value) {
+            if (preg_match('/.*View\.php/', $value)) {
+                $keep[] = $value;
+            }
+        }
+
+        $this->templates = $keep;
+        sort($this->templates);
     }
 
     public function next(): string
