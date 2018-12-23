@@ -6,6 +6,9 @@ require_once __DIR__ . '/scenes/DashboardScene.php';
 
 $input = json_decode(file_get_contents('php://input'), true);
 
+// Simulate a delay
+sleep(1);
+
 function handle ($input) {
     switch ($input['scene'] ?? '') {
         case 'DashboardScene':

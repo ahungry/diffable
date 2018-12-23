@@ -1,6 +1,11 @@
+var scene_mutex = false
+
 function set_scene (state, next) {
   const url = 'http://localhost:12345/api.php'
   const data = next
+
+  if (scene_mutex) return
+  scene_mutex = true
 
   fetch(url, {
     method: 'POST',
@@ -20,6 +25,7 @@ function set_scene (state, next) {
           focus.selectionStart = focusPos
         }
       }
+      scene_mutex = false
     })
 }
 
