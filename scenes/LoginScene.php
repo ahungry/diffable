@@ -23,8 +23,8 @@ class LoginScene extends AbstractScene
 
     private function isValidAuth()
     {
-        return ('test' === $this->username &&
-                'test' === $this->password);
+        return ('testing1' === $this->username &&
+                'testing1' === $this->password);
     }
 
     private function isTooShort(int $n): bool

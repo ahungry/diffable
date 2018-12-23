@@ -6,8 +6,9 @@ require_once __DIR__ . '/AbstractScene.php';
 
 class DashboardScene extends AbstractScene
 {
-    public $templateId = 'LoginView.php';
+    public $templateId = 'SuccessView.php';
     public $templates = [];
+    public $preview = '';
 
     public function __construct($state)
     {

@@ -7,7 +7,7 @@ require_once __DIR__ . '/scenes/DashboardScene.php';
 $input = json_decode(file_get_contents('php://input'), true);
 
 function handle ($input) {
-    switch ($input['scene']) {
+    switch ($input['scene'] ?? '') {
         case 'DashboardScene':
             return (new \Scene\DashboardScene($input))->next();
 

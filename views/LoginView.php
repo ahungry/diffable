@@ -1,6 +1,8 @@
 <?php require_once 'globals.php' ?>
 
-<input type="hidden" diffable id="scene" value="LoginScene">
+<h1>Sign In</h1>
+
+<input type="hidden" diffable refresh id="scene" value="LoginScene">
 <div style="margin: auto;">
   <form>
     <div>

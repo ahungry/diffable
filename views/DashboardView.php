@@ -1,32 +1,24 @@
 <?php require_once 'globals.php' ?>
 
 <input type="hidden" diffable id="scene" value="DashboardScene">
+<input type="hidden" value="<?=s('templateId', false);?>" id="templateId" diffable />
+
 <div style="margin: auto;">
   Welcome to your dashboard!
 
   <h1>Your templates</h1>
 
-  <table>
+  <div>
     <?php foreach (s('templates', false) as $key => $value): ?>
-      <tr>
-        <td>
-          <button
-            pointer="templateId"
-            value="<?=$value;?>"
-            diffable
-            clickable >
-            <?=$value;?>
-          </button>
-        </td>
-      </tr>
+      <button
+        pointer="templateId"
+        value="<?=$value;?>"
+        clickable>
+        <?=$value;?>
+      </button>
     <?php endforeach; ?>
-  </table>
+  </div>
 
-  <select id="templateId" diffable>
-    <?php foreach (s('templates', false) as $key => $value): ?>
-      <option value="<?=$value;?>"><?=$value;?></option>
-    <?php endforeach; ?>
-  </select>
   </table>
   <iframe style="width: 500px;" src="/views/<?php s('templateId'); ?>"></iframe>
 </div>
