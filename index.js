@@ -162,7 +162,12 @@ document.addEventListener('submit', function (e) {
 
 document.addEventListener('click', function (e) {
   if (e.target.hasAttribute('clickable')) {
-    e.target.value = 'clicked'
+    if (e.target.hasAttribute('pointer')) {
+      var p = e.target.getAttribute('pointer')
+      document.getElementById(p).value = e.target.value
+    } else {
+      e.target.value = 'clicked'
+    }
     e.preventDefault()
     e.stopPropagation()
     same = false

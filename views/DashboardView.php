@@ -5,8 +5,25 @@
   Welcome to your dashboard!
 
   <h1>Your templates</h1>
+
+  <table>
+    <?php foreach (s('templates', false) as $key => $value): ?>
+      <tr>
+        <td>
+          <button
+            pointer="templateId"
+            value="<?=$value;?>"
+            diffable
+            clickable >
+            <?=$value;?>
+          </button>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </table>
+
   <select id="templateId" diffable>
-    <?php foreach (s('templates') as $key => $value): ?>
+    <?php foreach (s('templates', false) as $key => $value): ?>
       <option value="<?=$value;?>"><?=$value;?></option>
     <?php endforeach; ?>
   </select>
