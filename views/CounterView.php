@@ -11,7 +11,7 @@
     </div>
     <div>
       The date auto-refreshes, pretty neat huh?
-      <?php s('date');?>
+      <strong><?php s('date');?></strong>
     </div>
     <input type="hidden" id="counter" diffable value="<?php s('counter'); ?>" />
 </div>

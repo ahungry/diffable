@@ -6,7 +6,8 @@ var buf = ''
 var scene_mutex = false
 
 function set_scene (state, next) {
-  const url = 'http://localhost:12345/api.php'
+  // const url = 'http://localhost:12345/api.php'
+  const url = '/api.php'
   const data = next
 
   if (scene_mutex) return
@@ -70,7 +71,7 @@ setInterval(function () {
   if (document.getElementById('scene').hasAttribute('refresh')) {
     same = false
   }
-}, 100)
+}, 1e3)
 
 function compare_diffs (prev, next) {
   const diff = {}
