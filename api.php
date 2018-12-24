@@ -10,7 +10,7 @@ $input = json_decode(file_get_contents('php://input'));
 // sleep(1);
 
 function handle ($input) {
-    $class = $input->scene ?? 'LoginScene';
+    $class = $input->scene ? $input->scene : 'LoginScene';
     $class = '\\Scene\\' . $class;
     $obj = new $class($input);
 
