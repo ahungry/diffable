@@ -16,7 +16,7 @@
     </div>
     <div>
       Password:<br />
-      <input type="password"
+      <input type="text"
              value="<?php s('password'); ?>"
              id="password"
              diffable />
