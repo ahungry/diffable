@@ -1,9 +1,10 @@
 <?php
 
-$world = [];
+$world = array();
 
 function set_world($w) {
     global $world;
+
     $world = $w;
 }
 
