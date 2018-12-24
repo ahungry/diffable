@@ -12,6 +12,8 @@ class DashboardScene extends AbstractScene
 
     public function __construct($state)
     {
+        parent::__construct($state);
+
         foreach ($state as $k => $v) {
             $this->{$k} = $v;
         }
@@ -33,8 +35,8 @@ class DashboardScene extends AbstractScene
 
     public function next(): string
     {
-        if (parent::next() !== '') {
-            return parent::next();
+        if ($this->maybeChangeScene($this->state)) {
+            return $this->maybeChangeScene($this->state);
         }
 
         return $this->render('DashboardView', $this);

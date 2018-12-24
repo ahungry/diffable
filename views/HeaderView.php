@@ -4,14 +4,14 @@
 
 <button
   pointer="sceneId"
-  value="DashboardView"
+  value="DashboardScene"
   clickable>
   Dashboard
 </button>
 
 <button
   pointer="sceneId"
-  value="ProfileView"
+  value="ProfileScene"
   clickable>
   Account Profile
 </button>

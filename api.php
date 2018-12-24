@@ -4,13 +4,13 @@ require_once __DIR__ . '/views/globals.php';
 require_once __DIR__ . '/scenes/LoginScene.php';
 require_once __DIR__ . '/scenes/DashboardScene.php';
 
-$input = json_decode(file_get_contents('php://input'), true);
+$input = json_decode(file_get_contents('php://input'));
 
 // Simulate a delay
 // sleep(1);
 
 function handle ($input) {
-    switch ($input['scene'] ?? '') {
+    switch ($input->scene ?? '') {
         case 'DashboardScene':
             return (new \Scene\DashboardScene($input))->next();
 

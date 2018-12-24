@@ -4,8 +4,19 @@ namespace Scene;
 
 require_once __DIR__ . '/../views/globals.php';
 
+require_once 'LoginScene.php';
+require_once 'DashboardScene.php';
+require_once 'ProfileScene.php';
+
 abstract class AbstractScene
 {
+    public $state = [];
+
+    public function __construct($state)
+    {
+        $this->state = $state;
+    }
+
     public function render(string $tpl, $arrayOrObject = []): string
     {
         $start = microtime(true);
@@ -23,10 +34,17 @@ abstract class AbstractScene
         return $html;
     }
 
-    public function next(): string
+    abstract public function next(): string;
+
+    public function maybeChangeScene($state): string
     {
-        if (!empty($this->sceneId) && $this->sceneId !== $this->scene) {
-            return $this->render($this->sceneId, $this);
+        if (!empty($state->sceneId) && $state->sceneId !== $state->scene) {
+            $class = '\\Scene\\' . $state->sceneId;
+            $newState = clone $state;
+            $newState->scene = $newState->sceneId;
+            $obj = new $class($newState);
+
+            return $obj->next();
         }
 
         return '';
