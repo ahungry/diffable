@@ -15,3 +15,10 @@
   clickable>
   Account Profile
 </button>
+
+<button
+  pointer="sceneId"
+  value="LoginScene"
+  clickable>
+  Logout
+</button>

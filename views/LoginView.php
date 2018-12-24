@@ -1,7 +1,5 @@
 <?php require_once 'globals.php' ?>
 
-<?php include 'HeaderView.php' ?>
-
 <h1>Sign In</h1>
 
 <input type="hidden" diffable refresh id="scene" value="LoginScene">
