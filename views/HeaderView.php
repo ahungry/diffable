@@ -4,21 +4,21 @@
 
 <button
   pointer="sceneId"
+  value="LoginScene"
+  clickable>
+  Input Form / Counter Button Demo
+</button>
+
+<button
+  pointer="sceneId"
   value="DashboardScene"
   clickable>
-  Dashboard
+  Dashboard Demo (iframe links)
 </button>
 
 <button
   pointer="sceneId"
   value="ProfileScene"
   clickable>
-  Account Profile
-</button>
-
-<button
-  pointer="sceneId"
-  value="LoginScene"
-  clickable>
-  Logout
+  Account Profile (Static page)
 </button>

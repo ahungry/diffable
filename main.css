@@ -12,7 +12,7 @@ h1 {
 #content {
   background: rgba(255, 255, 255, .95);
   margin: auto;
-  max-width: 400px;
+  max-width: 600px;
   padding: 2%;
   text-align: left;
 }
@@ -27,5 +27,16 @@ div {
 }
 
 button {
-  display: inline-block;
+  background: #eee;
+  border: 0px;
+  color:#666;
+  cursor:pointer;
+  font-family: monospace;
+  font-size: .7rem;
+  margin: 2px;
+  padding: 4px;
+}
+
+button:hover {
+  background: #ccc;
 }
