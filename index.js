@@ -1,3 +1,7 @@
+var world = { counter: 0, username: '', password: '' }
+var focusPos = 0
+var lastFocused = undefined
+var same = true
 var buf = ''
 var scene_mutex = false
 
@@ -18,22 +22,33 @@ function set_scene (state, next) {
   })
     .then(response => response.json())
     .then(json => {
+      // Here, we may have had the form change between send and receive.
+      const diff = get_diff()
+      const missing = compare_diffs(data, diff)
+
       document.getElementById('diffable').innerHTML = json.html
+
+      // Now, try to add the missing values.
+      Object.keys(missing).forEach(key => {
+        const node = document.getElementById(key)
+
+        if (node) {
+          node.value += missing[key]
+        }
+      })
+
       if (lastFocused) {
         var focus = document.getElementById(lastFocused)
+
         if (focus) {
           focus.focus()
           focus.selectionStart = focusPos
         }
       }
       scene_mutex = false
+      if (Object.keys(missing).length > 0) same = false
     })
 }
-
-var world = { counter: 0, username: '', password: '' }
-var focusPos = 0
-var lastFocused = undefined
-var same = true
 
 setTimeout(function () {
   set_scene(world)
@@ -54,6 +69,30 @@ setInterval(function () {
   }
 }, 10e3)
 
+function compare_diffs (prev, next) {
+  const diff = {}
+
+  Object.keys(next).forEach(key => {
+    if (next[key] !== prev[key]) {
+      console.log('Diff: ', next[key], prev[key])
+      diff[key] = next[key].slice(prev[key].length)
+    }
+  })
+
+  return diff
+}
+
+function get_diff () {
+  const diff = {}
+
+  document.querySelectorAll('[diffable]')
+    .forEach(node => {
+      diff[node.id] = node.value
+    })
+
+  return diff
+}
+
 function server_side_diff () {
   same = true
 
@@ -62,12 +101,7 @@ function server_side_diff () {
     focusPos = focus ? focus.selectionStart : 0
   }
 
-  var diff = {}
-
-  document.querySelectorAll('[diffable]')
-    .forEach(function (node) {
-      diff[node.id] = node.value
-    })
+  var diff = get_diff()
 
   // This feedback loop needs to happen from the scene call
   console.log(diff)
