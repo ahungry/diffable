@@ -11,9 +11,8 @@ $input = json_decode(file_get_contents('php://input'));
 
 function handle ($input) {
     if (!is_object($input)) {
-        $input = array(
-            'scene' => 'LoginScene'
-        );
+        $input = new \stdObject();
+        $input->scene = 'LoginScene';
     }
 
     $class = $input->scene;
