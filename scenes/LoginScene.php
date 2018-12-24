@@ -85,7 +85,7 @@ class LoginScene extends AbstractScene
                 return $obj->next();
             }
 
-            $this->error = $this->render('ErrorView', ['error' => 'Invalid Credentials!']);
+            $this->error = $this->render('ErrorView', array('error' => 'Invalid Credentials!'));
         }
 
         if ('clicked' === $this->inc) {
