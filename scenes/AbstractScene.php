@@ -27,7 +27,8 @@ abstract class AbstractScene
         $end = microtime(true);
         $time = round($end - $start, 6);
 
-        $html .= "<i style='color:#666;'>$tpl rendered at " . (new \DateTime())->format('Y-m-d H:i:s')
+        $date = new \DateTime();
+        $html .= "<i style='color:#666;'>$tpl rendered at " . $date->format('Y-m-d H:i:s')
             . " in $time seconds.</i>";
 
         return $html;

@@ -28,7 +28,8 @@ class CounterScene extends AbstractScene
             $this->counter++;
         }
 
-        $this->date = (new \DateTime())->format('Y-m-d H:i:s');
+        $date = new \DateTime();
+        $this->date = $date->format('Y-m-d H:i:s');
 
         return $this->render('CounterView', $this);
     }
