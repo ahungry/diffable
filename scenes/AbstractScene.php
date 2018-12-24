@@ -7,6 +7,7 @@ require_once __DIR__ . '/../views/globals.php';
 require_once 'LoginScene.php';
 require_once 'DashboardScene.php';
 require_once 'ProfileScene.php';
+require_once 'SelectScene.php';
 
 abstract class AbstractScene
 {
@@ -36,15 +37,21 @@ abstract class AbstractScene
 
     abstract public function next(): string;
 
+    public $maybeAnswer = '';
+
     public function maybeChangeScene($state): string
     {
+        if (!empty($this->maybeAnswer)) {
+            return $this->maybeAnswer;
+        }
+
         if (!empty($state->sceneId) && $state->sceneId !== $state->scene) {
             $class = '\\Scene\\' . $state->sceneId;
-            $newState = clone $state;
-            $newState->scene = $newState->sceneId;
-            $obj = new $class($newState);
+            $state->scene = $state->sceneId;
+            $obj = new $class($state);
+            $this->maybeAnswer = $obj->next();
 
-            return $obj->next();
+            return $this->maybeAnswer;
         }
 
         return '';

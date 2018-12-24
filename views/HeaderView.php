@@ -11,6 +11,13 @@
 
 <button
   pointer="sceneId"
+  value="SelectScene"
+  clickable>
+  Tiered Select Lists
+</button>
+
+<button
+  pointer="sceneId"
   value="DashboardScene"
   clickable>
   Dashboard Demo (iframe links)
