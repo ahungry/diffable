@@ -19,7 +19,7 @@ function maybe_default ($key) {
 function s ($key, $echo = true) {
     global $world;
 
-    $val = $world[$key] ?? maybe_default($key);
+    $val = $world[$key] ? $world[$key] : maybe_default($key);
 
     if ($echo) {
         echo $val;
