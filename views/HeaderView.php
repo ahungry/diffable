@@ -11,21 +11,14 @@
 
 <button
   pointer="sceneId"
+  value="CounterScene"
+  clickable>
+  Counter Button Demo
+</button>
+
+<button
+  pointer="sceneId"
   value="SelectScene"
   clickable>
   Tiered Select Lists
-</button>
-
-<button
-  pointer="sceneId"
-  value="DashboardScene"
-  clickable>
-  Dashboard Demo (iframe links)
-</button>
-
-<button
-  pointer="sceneId"
-  value="ProfileScene"
-  clickable>
-  Account Profile (Static page)
 </button>

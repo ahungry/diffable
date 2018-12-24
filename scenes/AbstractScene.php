@@ -4,9 +4,8 @@ namespace Scene;
 
 require_once __DIR__ . '/../views/globals.php';
 
+require_once 'CounterScene.php';
 require_once 'LoginScene.php';
-require_once 'DashboardScene.php';
-require_once 'ProfileScene.php';
 require_once 'SelectScene.php';
 
 abstract class AbstractScene

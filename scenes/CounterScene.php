@@ -4,8 +4,11 @@ namespace Scene;
 
 require_once __DIR__ . '/AbstractScene.php';
 
-class ProfileScene extends AbstractScene
+class CounterScene extends AbstractScene
 {
+    public $inc;
+    public $counter = 0;
+
     public function __construct($state)
     {
         parent::__construct($state);
@@ -21,6 +24,10 @@ class ProfileScene extends AbstractScene
             return $this->maybeChangeScene($this->state);
         }
 
-        return $this->render('ProfileView', $this);
+        if ('clicked' === $this->inc) {
+            $this->counter++;
+        }
+
+        return $this->render('CounterView', $this);
     }
 }
