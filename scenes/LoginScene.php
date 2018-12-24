@@ -8,7 +8,7 @@ class LoginScene extends AbstractScene
 {
     public $go;
     public $inc;
-    public $username = '';
+    public $phone = '';
     public $password = '';
     public $counter = 0;
     public $error = '';
@@ -25,23 +25,24 @@ class LoginScene extends AbstractScene
 
     private function isValidAuth()
     {
-        return (strlen($this->username) > 8 &&
+        return (strlen($this->phone) > 8 &&
                 'testing1' === $this->password);
     }
 
-    private function isTooShort(int $n): bool
+    private function isTooShort(int $n, int $l): bool
     {
-        return $n > 0 && $n < 8;
+        return $n > 0 && $n < $l;
     }
 
-    private function checkLength(string $key)
+    private function checkLength(string $key, int $l)
     {
-        $len = strlen($this->$key);
+        $c = preg_replace('/[^A-Za-z0-9]/', '', $this->$key);
+        $len = strlen($c);
 
-        if ($this->isTooShort($len)) {
+        if ($this->isTooShort($len, $l)) {
             return $this->info .= $this->render(
                 'InfoView',
-                ['info' => "Keep typing, $key too short! ({$len} / 8+ chars)"]
+                ['info' => "Keep typing, $key too short! ({$len} / ${l}+ chars)"]
             );
         }
 
@@ -90,9 +91,9 @@ class LoginScene extends AbstractScene
             $this->counter++;
         }
 
-        $this->checkLength('username');
-        $this->checkLength('password');
-        $this->username = $this->maskPhone($this->username);
+        $this->checkLength('phone', 10);
+        $this->checkLength('password', 6);
+        $this->phone = $this->maskPhone($this->phone);
 
         return $this->render('LoginView', $this);
     }

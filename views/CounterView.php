@@ -9,5 +9,9 @@
     <div>
       <button id="inc" clickable diffable>Clicked <?php s('counter'); ?> times!</button>
     </div>
+    <div>
+      The date auto-refreshes, pretty neat huh?
+      <?php s('date');?>
+    </div>
     <input type="hidden" id="counter" diffable value="<?php s('counter'); ?>" />
 </div>

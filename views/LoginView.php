@@ -4,14 +4,14 @@
 
 <h1>Sign In</h1>
 
-<input type="hidden" diffable refresh id="scene" value="LoginScene">
+<input type="hidden" diffable id="scene" value="LoginScene">
 <div style="margin: auto;">
   <form>
     <div>
       Phone:<br />
       <input type="text"
-             value="<?php s('username'); ?>"
-             id="username"
+             value="<?php s('phone'); ?>"
+             id="phone"
              diffable />
     </div>
     <div>

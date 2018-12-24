@@ -8,6 +8,7 @@ class CounterScene extends AbstractScene
 {
     public $inc;
     public $counter = 0;
+    public $date;
 
     public function __construct($state)
     {
@@ -27,6 +28,8 @@ class CounterScene extends AbstractScene
         if ('clicked' === $this->inc) {
             $this->counter++;
         }
+
+        $this->date = (new \DateTime())->format('Y-m-d H:i:s');
 
         return $this->render('CounterView', $this);
     }

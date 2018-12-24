@@ -70,7 +70,7 @@ setInterval(function () {
   if (document.getElementById('scene').hasAttribute('refresh')) {
     same = false
   }
-}, 10e3)
+}, 100)
 
 function compare_diffs (prev, next) {
   const diff = {}
@@ -126,11 +126,15 @@ document.addEventListener('blur', function (_e) {
 // For instance, queue all keys pre-send and auto append if a
 // refresh hits us mid typing.
 var keypressTimeout
-document.addEventListener('keypress', function (_e) {
+document.addEventListener('keypress', function (e) {
+  var id = e.target.id
+  var val = e.target.value
   clearTimeout(keypressTimeout)
 
   keypressTimeout = setTimeout(function () {
-    same = false
+    if (document.getElementById(id).value !== val) {
+      same = false
+    }
   }, 20)
 }, true)
 
