@@ -80,7 +80,9 @@ class LoginScene extends AbstractScene
 
         if ('clicked' === $this->go) {
             if ($this->isValidAuth()) {
-                return (new SelectScene(array()))->next();
+                $obj = new SelectScene(array());
+
+                return $obj->next();
             }
 
             $this->error = $this->render('ErrorView', ['error' => 'Invalid Credentials!']);
