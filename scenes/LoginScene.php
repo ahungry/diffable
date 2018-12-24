@@ -41,14 +41,14 @@ class LoginScene extends AbstractScene
         if ($this->isTooShort($len, $l)) {
             return $this->info .= $this->render(
                 'InfoView',
-                ['info' => "Keep typing, $key too short! ({$len} / ${l}+ chars)"]
+                array('info' => "Keep typing, $key too short! ({$len} / ${l}+ chars)")
             );
         }
 
         if ($len > 0) {
             return $this->info .= $this->render(
                 'SuccessView',
-                ['info' => "Good job, your $key is perfect!"]
+                array('info' => "Good job, your $key is perfect!")
             );
         }
     }
@@ -80,7 +80,7 @@ class LoginScene extends AbstractScene
 
         if ('clicked' === $this->go) {
             if ($this->isValidAuth()) {
-                return (new SelectScene([]))->next();
+                return (new SelectScene(array()))->next();
             }
 
             $this->error = $this->render('ErrorView', ['error' => 'Invalid Credentials!']);

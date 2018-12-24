@@ -9,14 +9,14 @@ require_once 'SelectScene.php';
 
 abstract class AbstractScene
 {
-    public $state = [];
+    public $state = array();
 
     public function __construct($state)
     {
         $this->state = $state;
     }
 
-    public function render(string $tpl, $arrayOrObject = [])
+    public function render(string $tpl, $arrayOrObject)
     {
         $start = microtime(true);
         $input = json_decode(json_encode($arrayOrObject), true);
