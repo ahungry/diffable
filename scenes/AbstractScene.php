@@ -16,7 +16,7 @@ abstract class AbstractScene
         $this->state = $state;
     }
 
-    public function render(string $tpl, $arrayOrObject)
+    public function render($tpl, $arrayOrObject)
     {
         $start = microtime(true);
         $input = json_decode(json_encode($arrayOrObject), true);
