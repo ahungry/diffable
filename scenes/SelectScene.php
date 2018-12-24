@@ -10,13 +10,13 @@ class SelectScene extends AbstractScene
     ];
 
     public $name = [
-        '' => [],
-        'cat' => ['', 'Noah', 'Coleco', 'Raven'],
-        'dog' => ['', 'Mickey', 'Minnie'],
-        'fish' => ['', 'Goldie', 'BigEye'],
+        '' => array(),
+        'cat' => array('', 'Noah', 'Coleco', 'Raven'),
+        'dog' => array('', 'Mickey', 'Minnie'),
+        'fish' => array('', 'Goldie', 'BigEye'),
     ];
 
-    public $nameList = [];
+    public $nameList = array();
     public $speciesChosen = '';
     public $nameChosen = '';
     public $rhymingNames = '';
@@ -33,7 +33,7 @@ class SelectScene extends AbstractScene
     public function getRhymingNames($name)
     {
         $matches = file_get_contents('https://api.datamuse.com/words?rel_rhy=' . $name);
-        $words = [];
+        $words = array();
 
         foreach (json_decode($matches, true) as $k => $v) {
             $words[] = $v['word'];

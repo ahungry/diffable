@@ -17,10 +17,10 @@ function handle ($input) {
     return $obj->next();
 }
 
-$response = [
+$response = array(
     'html' => handle($input),
     'input' => $input,
-];
+);
 
 $json = json_encode($response);
 
