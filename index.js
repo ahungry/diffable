@@ -42,7 +42,10 @@ function set_scene (state, next) {
 
         if (focus) {
           focus.focus()
-          focus.selectionStart = focusPos
+          // This could be good, unless we need to go to end due to
+          // auto format things.
+          // focus.selectionStart = focusPos
+          focus.selectionStart = focus.value.length + 1
         }
       }
       scene_mutex = false
@@ -128,7 +131,7 @@ document.addEventListener('keypress', function (_e) {
 
   keypressTimeout = setTimeout(function () {
     same = false
-  }, 200)
+  }, 20)
 }, true)
 
 document.addEventListener('change', function (_e) {

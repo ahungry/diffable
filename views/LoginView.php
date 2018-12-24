@@ -8,12 +8,14 @@
 <div style="margin: auto;">
   <form>
     <div>
+      Phone:<br />
       <input type="text"
              value="<?php s('username'); ?>"
              id="username"
              diffable />
     </div>
     <div>
+      Password:<br />
       <input type="password"
              value="<?php s('password'); ?>"
              id="password"

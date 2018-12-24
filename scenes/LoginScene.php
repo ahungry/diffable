@@ -25,7 +25,7 @@ class LoginScene extends AbstractScene
 
     private function isValidAuth()
     {
-        return ('testing1' === $this->username &&
+        return (strlen($this->username) > 8 &&
                 'testing1' === $this->password);
     }
 
@@ -53,6 +53,25 @@ class LoginScene extends AbstractScene
         }
     }
 
+    private function maskPhone(string $s): string
+    {
+        $c = preg_replace('/\D/', '', $s);
+
+        if (strlen($c) < 1) {
+            return '';
+        }
+
+        if (strlen($c) < 3) {
+            return '(' . $c;
+        }
+
+        if (strlen($c) < 6) {
+            return '(' . substr($c, 0, 3) . ') ' . substr($c, 3);
+        }
+
+        return '(' . substr($c, 0, 3) . ') ' . substr($c, 3, 3) . '-' . substr($c, 6, 4);
+    }
+
     public function next(): string
     {
         if ($this->maybeChangeScene($this->state)) {
@@ -73,6 +92,7 @@ class LoginScene extends AbstractScene
 
         $this->checkLength('username');
         $this->checkLength('password');
+        $this->username = $this->maskPhone($this->username);
 
         return $this->render('LoginView', $this);
     }
