@@ -4,6 +4,8 @@ endpoints with very simple / flat maps per scene / page, instead of
 heavily nested "components" that rarely get reused and end up with
 tons of hooks and binds in them over time.
 
+Look at http://diffable.ahungry.com for a sample of this.
+
 * Scene based diffing site
 ** Current react situation
 Currently with a tool like React (SPA) everything follows a tree
