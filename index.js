@@ -122,8 +122,13 @@ document.addEventListener('blur', function (_e) {
 // TODO: Add some type of lock here.
 // For instance, queue all keys pre-send and auto append if a
 // refresh hits us mid typing.
+var keypressTimeout
 document.addEventListener('keypress', function (_e) {
-  same = false
+  clearTimeout(keypressTimeout)
+
+  keypressTimeout = setTimeout(function () {
+    same = false
+  }, 200)
 }, true)
 
 document.addEventListener('change', function (_e) {
