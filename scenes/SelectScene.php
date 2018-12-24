@@ -5,16 +5,16 @@ require_once __DIR__ . '/AbstractScene.php';
 
 class SelectScene extends AbstractScene
 {
-    public $species = [
+    public $species = array(
         '', 'cat', 'dog', 'fish',
-    ];
+    );
 
-    public $name = [
+    public $name = array(
         '' => array(),
         'cat' => array('', 'Noah', 'Coleco', 'Raven'),
         'dog' => array('', 'Mickey', 'Minnie'),
         'fish' => array('', 'Goldie', 'BigEye'),
-    ];
+    );
 
     public $nameList = array();
     public $speciesChosen = '';
