@@ -1,6 +1,6 @@
 <?php require_once 'globals.php' ?>
 
-<input type="hidden" value="<?=s('sceneId', false);?>" id="sceneId" diffable />
+<input type="hidden" value="<?php s('sceneId');?>" id="sceneId" diffable />
 
 <button
   pointer="sceneId"

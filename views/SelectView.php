@@ -18,8 +18,8 @@
           selected="true"
           <?php endif; ?>
 
-          value="<?=$value;?>"
-        ><?=$value;?></option>
+          value="<?php echo $value; ?>"
+        ><?php echo $value; ?></option>
       <?php endforeach; ?>
     </select>
 
@@ -33,13 +33,13 @@
             selected="true"
             <?php endif; ?>
 
-            value="<?=$value;?>"
-          ><?=$value;?></option>
+            value="<?php echo $value;?>"
+          ><?php echo $value;?></option>
         <?php endforeach; ?>
       </select>
   </div>
   <h3>Rhyming Names</h3>
-  <div><?=s('rhymingNames');?></div>
+  <div><?php echo s('rhymingNames');?></div>
     <?php endif; ?>
 
 </div>
