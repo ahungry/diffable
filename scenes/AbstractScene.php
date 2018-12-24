@@ -23,5 +23,12 @@ abstract class AbstractScene
         return $html;
     }
 
-    abstract public function next(): string;
+    public function next(): string
+    {
+        if (!empty($this->sceneId) && $this->sceneId !== $this->scene) {
+            return $this->render($this->sceneId, $this);
+        }
+
+        return '';
+    }
 }

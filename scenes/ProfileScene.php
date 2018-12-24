@@ -4,7 +4,7 @@ namespace Scene;
 
 require_once __DIR__ . '/AbstractScene.php';
 
-class DashboardScene extends AbstractScene
+class ProfileScene extends AbstractScene
 {
     public $templateId = 'SuccessView.php';
     public $templates = [];
@@ -37,6 +37,6 @@ class DashboardScene extends AbstractScene
             return parent::next();
         }
 
-        return $this->render('DashboardView', $this);
+        return $this->render('ProfileView', $this);
     }
 }

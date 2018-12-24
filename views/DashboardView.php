@@ -1,5 +1,7 @@
 <?php require_once 'globals.php' ?>
 
+<?php include 'HeaderView.php' ?>
+
 <input type="hidden" diffable id="scene" value="DashboardScene">
 <input type="hidden" value="<?=s('templateId', false);?>" id="templateId" diffable />
 

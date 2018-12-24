@@ -53,6 +53,10 @@ class LoginScene extends AbstractScene
 
     public function next(): string
     {
+        if (parent::next() !== '') {
+            return parent::next();
+        }
+
         if ('clicked' === $this->go) {
             if ($this->isValidAuth()) {
                 return (new DashboardScene([]))->next();
