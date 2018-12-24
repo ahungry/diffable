@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 namespace Scene;
 
 require_once __DIR__ . '/AbstractScene.php';
@@ -19,7 +18,7 @@ class CounterScene extends AbstractScene
         }
     }
 
-    public function next(): string
+    public function next()
     {
         if ($this->maybeChangeScene($this->state)) {
             return $this->maybeChangeScene($this->state);

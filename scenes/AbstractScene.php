@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 namespace Scene;
 
 require_once __DIR__ . '/../views/globals.php';
@@ -17,7 +16,7 @@ abstract class AbstractScene
         $this->state = $state;
     }
 
-    public function render(string $tpl, $arrayOrObject = []): string
+    public function render(string $tpl, $arrayOrObject = [])
     {
         $start = microtime(true);
         $input = json_decode(json_encode($arrayOrObject), true);
@@ -34,11 +33,11 @@ abstract class AbstractScene
         return $html;
     }
 
-    abstract public function next(): string;
+    abstract public function next();
 
     public $maybeAnswer = '';
 
-    public function maybeChangeScene($state): string
+    public function maybeChangeScene($state)
     {
         if (!empty($this->maybeAnswer)) {
             return $this->maybeAnswer;

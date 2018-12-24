@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 namespace Scene;
 
 require_once __DIR__ . '/AbstractScene.php';
@@ -31,7 +30,7 @@ class SelectScene extends AbstractScene
         }
     }
 
-    public function getRhymingNames(string $name)
+    public function getRhymingNames($name)
     {
         $matches = file_get_contents('https://api.datamuse.com/words?rel_rhy=' . $name);
         $words = [];
@@ -43,7 +42,7 @@ class SelectScene extends AbstractScene
         return $words;
     }
 
-    public function next(): string
+    public function next()
     {
         if ($this->maybeChangeScene($this->state)) {
             return $this->maybeChangeScene($this->state);
