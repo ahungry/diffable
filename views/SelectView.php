@@ -23,7 +23,7 @@
       <?php endforeach; ?>
     </select>
 
-    <?php if (!empty(s('nameList', false))): ?>
+    <?php if (count(s('nameList', false)) > 0): ?>
       <select diffable id="nameChosen">
 
         <?php foreach (s('nameList', false) as $key => $value): ?>
