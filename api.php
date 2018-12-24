@@ -10,7 +10,7 @@ $input = json_decode(file_get_contents('php://input'));
 // sleep(1);
 
 function handle ($input) {
-    if (empty($input)) {
+    if (!is_object($input)) {
         $input = array(
             'scene' => 'LoginScene'
         );
