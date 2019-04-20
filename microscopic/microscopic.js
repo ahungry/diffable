@@ -1,4 +1,4 @@
-function Props (fn) {
+function Handlers (fn) {
   this.onClick = function (e) {
     console.log('I was clicked!', e)
 
@@ -8,12 +8,12 @@ function Props (fn) {
   }
 }
 
-function make_props (fn) {
-  return new Props(fn)
+function make_handlers (fn) {
+  return new Handlers(fn)
 }
 
-var p = new Props()
-console.log('p type', p instanceof Props)
+var p = new Handlers()
+console.log('p type', p instanceof Handlers)
 
 // Args can be the children
 function make_tag (tag) {
@@ -31,10 +31,11 @@ function make_tag (tag) {
           child.innerHTML = s
         }
 
-        if (child instanceof Props) {
+        if (child instanceof Handlers) {
           e.addEventListener('click', child.onClick)
         } else {
           e.appendChild(child)
+          console.log('Got a real object...')
         }
       }
     }
@@ -52,13 +53,24 @@ var tag_map = ['div', 'p', 'i', 'strong', 'form', 'input'].map(function (tag) {
 // Basically, importing the tags you plan to use.
 var { div, p, strong, i } = tags
 
-var d = div(make_props(function (e) { alert('wowee!') }),
-  p('Start a paragraph here...',
-    strong('Bold text, wow!'),
-    i('italic text, wow!'),
-  ),
-  'Hello world',
-  'This is not bad.'
+// TODO: Wrap the dom elements in self observing state, so they re-render themselves.
+function Hello (p) {
+  // state things
+  this.clicked = 0
+
+  return div(
+    make_handlers(_ => { this.clicked++; console.log('Clicked: ', this.clicked); }),
+    'Hello ' + p.name,
+  )
+}
+
+var hello = new Hello({ name: 'Matt' })
+var hello2 = new Hello({ name: 'Matt' })
+var GoodBye = p => div('GoodBye ' + p.name)
+
+var d = div(
+  hello, hello2,
+  GoodBye({ name: 'Matt' }),
 )
 
 document.getElementById('hello-example').appendChild(d)
