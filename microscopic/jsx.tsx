@@ -8,3 +8,5 @@ document.getElementById('app').appendChild(
             injected into a web page using a script</h2>
   </div>
 );
+
+var hello = <Hello clicked={0} name="Matt" />
