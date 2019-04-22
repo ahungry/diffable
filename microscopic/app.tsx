@@ -1,11 +1,17 @@
 // A fake (minimal) React
 const React = {
   createElement: function (tag, attrs, children) {
+    var isFn = false
     var element
 
     switch (typeof tag) {
       case 'function':
-        element = tag()
+        const t = { [tag]: tag }
+        element = (new t[tag]())
+        element.props = {
+          children: document.createElement('span')
+        }
+        isFn = true
         break
 
       case 'string':
@@ -26,19 +32,29 @@ const React = {
     }
     for (let i = 2; i < arguments.length; i++) {
       let child = arguments[i]
-      element.appendChild(
-        child.nodeType == null ?
-          document.createTextNode(child.toString()) : child)
+
+      if (false === isFn) {
+        element.appendChild(
+          child.nodeType == null ?
+            document.createTextNode(child.toString()) : child)
+      } else {
+        element.props.children.appendChild(
+          child.nodeType == null ?
+            document.createTextNode(child.toString()) : child)
+      }
     }
-    return element
+    return isFn ? element.render() : element
   }
 }
 
-function Hello () {
-  var self = document.createElement('Hello')
-  self.onclick = _ => alert('Hello')
-  //this.onclick = function (_) { return alert('Hello'); };
-  return self
+class Hello {
+  public props
+
+  render () {
+    return (
+      <div>Greetings to you!<strong>{this.props.children}</strong></div>
+    )
+  }
 }
 
 const title = "Hello World"

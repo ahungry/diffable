@@ -1,10 +1,17 @@
 // A fake (minimal) React
 var React = {
     createElement: function (tag, attrs, children) {
+        var _a;
+        var isFn = false;
         var element;
         switch (typeof tag) {
             case 'function':
-                element = tag();
+                var t = (_a = {}, _a[tag] = tag, _a);
+                element = (new t[tag]());
+                element.props = {
+                    children: document.createElement('span')
+                };
+                isFn = true;
                 break;
             case 'string':
             default:
@@ -24,18 +31,28 @@ var React = {
         }
         for (var i = 2; i < arguments.length; i++) {
             var child = arguments[i];
-            element.appendChild(child.nodeType == null ?
-                document.createTextNode(child.toString()) : child);
+            if (false === isFn) {
+                element.appendChild(child.nodeType == null ?
+                    document.createTextNode(child.toString()) : child);
+            }
+            else {
+                element.props.children.appendChild(child.nodeType == null ?
+                    document.createTextNode(child.toString()) : child);
+            }
         }
-        return element;
+        return isFn ? element.render() : element;
     }
 };
-function Hello() {
-    var self = document.createElement('Hello');
-    self.onclick = function (_) { return alert('Hello'); };
-    //this.onclick = function (_) { return alert('Hello'); };
-    return self;
-}
+var Hello = /** @class */ (function () {
+    function Hello() {
+    }
+    Hello.prototype.render = function () {
+        return (React.createElement("div", null,
+            "Greetings to you!",
+            React.createElement("strong", null, this.props.children)));
+    };
+    return Hello;
+}());
 var title = "Hello World";
 document.getElementById('app').appendChild(React.createElement("div", null,
     React.createElement(Hello, null, "Greetings!"),
