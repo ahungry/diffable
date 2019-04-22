@@ -69,32 +69,44 @@ const React = {
   }
 }
 
-class Hello {
-  public props
-  public clicked = 0
+class Base {
+  constructor (public props, public state) { }
 
-  constructor (props) {
-    this.clicked = props.clicked || 0
+  // Just a redraw for now
+  public setState = (m) => {
+    console.log(this.props.id)
+    console.log('New state was: ', m)
+
+    // TODO: How to get the static class ref dynamically?
+    var self = React.createElement(Hello, { ...this.props, ...m }, this.props.children)
+    // var self = <Hello {...this.props} {...m}>{this.props.children}</Hello>
+    var t = document.getElementById(this.props.id)
+    console.log('T was: ', t)
+    t.parentNode.replaceChild(self, t)
+  }
+}
+
+class Hello extends Base {
+  constructor (props, state) {
+    super(props, state)
+
+    console.log('New props was: ', props)
+
+    this.state = {
+      clicked: props.clicked || 0
+    }
   }
 
   public onClick = () => {
-    this.clicked++
-    console.log(this.clicked)
-    this.setState()
-  }
-
-  // Just a redraw for now
-  setState = () => {
-    console.log(this.props.id)
-    var self = <Hello clicked={this.clicked} />
-    var t = document.getElementById(this.props.id)
-    t.parentNode.replaceChild(self, t)
+    this.setState({
+      clicked: ++this.state.clicked,
+    })
   }
 
   render () {
     return (
       <div>Greetings to you!<strong>{this.props.children}</strong>
-        <b>Clicked {this.clicked} times!</b>
+        <b>Clicked {this.state.clicked} times!</b>
       </div>
     )
   }
